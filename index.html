@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Descubra o Bicho pela Milhar – Calculadora do Jogo do Bicho</title>
+<meta name="description" content="Digite uma milhar e descubra na hora a centena, a dezena, o grupo e o bicho correspondente. Tabela dos 25 bichos com dezenas. Ferramenta gratuita e informativa.">
+<link rel="canonical" href="https://bichobahia.github.io/descubra-o-bicho/">
+<meta property="og:title" content="Descubra o Bicho pela Milhar">
+<meta property="og:description" content="Calculadora gratuita: milhar → centena, dezena, grupo e bicho.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bichobahia.github.io/descubra-o-bicho/">
+<meta name="theme-color" content="#004623">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Descubra o Bicho pela Milhar","url":"https://bichobahia.github.io/descubra-o-bicho/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"pt-BR","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},"publisher":{"@type":"Organization","name":"Bicho Bahia","url":"https://bichobahia.com.br/"}}
+</script>
+<style>
+:root{--verde:#004623;--verde2:#007A3D;--amarelo:#FFCC00;--bg:#f4f7f5;--card:#fff;--txt:#14231b;--muted:#5b6b62;--line:#dfe7e2}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1511;--card:#14201a;--txt:#e8f0eb;--muted:#9fb2a7;--line:#24352c}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.55}
+header{background:var(--verde);color:#fff;padding:28px 16px 34px;text-align:center;border-bottom:4px solid var(--amarelo)}
+header h1{margin:0 0 6px;font-size:clamp(1.5rem,4vw,2.2rem)}
+header p{margin:0;opacity:.9}
+main{max-width:860px;margin:-22px auto 40px;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+label{font-weight:600;display:block;margin-bottom:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+input{flex:1;min-width:160px;font-size:1.6rem;letter-spacing:.2em;text-align:center;padding:12px;border:2px solid var(--line);border-radius:10px;background:transparent;color:var(--txt)}
+input:focus{outline:none;border-color:var(--verde2)}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:16px}
+.box{border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.box small{display:block;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.box b{font-size:1.5rem}
+.box.big{background:var(--verde);color:#fff;border-color:var(--verde)}
+.box.big small{color:#cfe8d9}
+.hint{color:var(--muted);font-size:.9rem;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:var(--verde);color:#fff}
+tr.on td{background:var(--amarelo);color:#14231b;font-weight:700}
+h2{font-size:1.2rem;margin:0 0 12px;color:var(--verde2)}
+details{border-bottom:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:600}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 30px}
+footer a,main a{color:var(--verde2)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Descubra o Bicho pela Milhar</h1>
+  <p>Digite um número de até 4 dígitos e veja centena, dezena, grupo e bicho.</p>
+</header>
+<main>
+  <section class="card" aria-labelledby="calc">
+    <label id="calc" for="milhar">Milhar</label>
+    <div class="row"><input id="milhar" inputmode="numeric" maxlength="4" placeholder="7264" autocomplete="off"></div>
+    <div class="res" aria-live="polite">
+      <div class="box"><small>Milhar</small><b id="o-m">—</b></div>
+      <div class="box"><small>Centena</small><b id="o-c">—</b></div>
+      <div class="box"><small>Dezena</small><b id="o-d">—</b></div>
+      <div class="box big"><small>Grupo</small><b id="o-g">—</b></div>
+      <div class="box big"><small>Bicho</small><b id="o-b">—</b></div>
+    </div>
+    <p class="hint">Dica: a dezena 00 pertence ao grupo 25 (Vaca).</p>
+  </section>
+
+  <section class="card">
+    <h2>Tabela dos 25 bichos</h2>
+    <table><thead><tr><th>Grupo</th><th>Bicho</th><th>Dezenas</th></tr></thead><tbody id="tab"></tbody></table>
+  </section>
+
+  <section class="card">
+    <h2>Como funciona</h2>
+    <p>Cada prêmio do jogo do bicho é uma <strong>milhar</strong> de quatro dígitos. Os três últimos dígitos formam a <strong>centena</strong> e os dois últimos, a <strong>dezena</strong>. A dezena define o <strong>grupo</strong>: são 25 grupos com 4 dezenas cada. O cálculo é dividir a dezena por 4 e arredondar para cima (a dezena 00 conta como 100).</p>
+    <details><summary>Exemplo: milhar 3.462</summary><p>Centena 462, dezena 62, grupo 16 — Leão.</p></details>
+    <details><summary>Por que a dezena 00 é da Vaca?</summary><p>Porque a tabela vai de 01 a 00: o grupo 1 começa em 01 e o grupo 25 fecha com 97, 98, 99 e 00.</p></details>
+    <details><summary>Esta ferramenta prevê resultados?</summary><p>Não. Ela apenas converte um número já sorteado. Nenhuma ferramenta consegue prever sorteios.</p></details>
+  </section>
+
+  <p style="text-align:center">Quer conferir os sorteios de hoje? Os resultados ficam no <a href="https://bichobahia.com.br/paratodos-bahia/">Bicho Bahia</a>.</p>
+</main>
+<footer>
+  Ferramenta gratuita e de código aberto · <a href="https://github.com/bichobahia/descubra-o-bicho">GitHub</a><br>
+  Conteúdo apenas informativo. Não realizamos nem aceitamos apostas.
+</footer>
+<script>
+const B=['Avestruz','Águia','Burro','Borboleta','Cachorro','Cabra','Carneiro','Camelo','Cobra','Coelho','Cavalo','Elefante','Galo','Gato','Jacaré','Leão','Macaco','Porco','Pavão','Peru','Touro','Tigre','Urso','Veado','Vaca'];
+const dz=g=>[1,2,3,4].map(i=>String((4*g-4+i)%100).padStart(2,'0'));
+const tb=document.getElementById('tab');
+B.forEach((b,i)=>{const g=i+1;const tr=document.createElement('tr');tr.id='g'+g;tr.innerHTML=`<td>${String(g).padStart(2,'0')}</td><td>${b}</td><td>${dz(g).join(', ')}</td>`;tb.appendChild(tr)});
+const $=id=>document.getElementById(id);
+function calc(){
+  const v=$('milhar').value.replace(/\D/g,'').slice(0,4);$('milhar').value=v;
+  document.querySelectorAll('tr.on').forEach(t=>t.classList.remove('on'));
+  if(!v){['m','c','d','g','b'].forEach(k=>$('o-'+k).textContent='—');return}
+  const m=v.padStart(4,'0'),d=Number(m.slice(-2)),g=Math.ceil((d===0?100:d)/4);
+  $('o-m').textContent=m;$('o-c').textContent=m.slice(-3);$('o-d').textContent=m.slice(-2);
+  $('o-g').textContent=String(g).padStart(2,'0');$('o-b').textContent=B[g-1];
+  $('g'+g).classList.add('on');
+}
+$('milhar').addEventListener('input',calc);
+</script>
+</body>
+</html>
